@@ -1,0 +1,36 @@
+﻿<div class="jumbotron text-center">
+    <h1>Home Page</h1>
+
+    <p>{{ message }}</p>
+ 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                Search: <input ng-model="query">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="sample in pollSamples | filter:query">
+                            <td>{{sample.PollSampleEntityId}}</td>
+                            <td>{{sample.Name}}</td>
+                            <td>{{sample.Age}}</td>
+                            <td>{{sample.CountryId}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

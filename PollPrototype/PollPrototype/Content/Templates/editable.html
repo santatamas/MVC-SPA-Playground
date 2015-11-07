@@ -1,0 +1,57 @@
+﻿<div class="jumbotron text-center">
+    <h1>Editable Page</h1>
+
+    <p>{{ message }}</p>
+
+    <table class="table table-bordered table-hover table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pollSample in pollSamples">
+                <td>
+                    {{ pollSample.PollSampleEntityId }}
+                </td>
+                <td>
+                    <!-- editable username (text with validation) -->
+                    <span editable-text="pollSample.Name" e-name="name" e-form="rowform" onbeforesave="checkName($data, pollSample.PollSampleEntityId)" e-required>
+                        {{ pollSample.Name || 'empty' }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="pollSample.Age" e-name="age" e-form="rowform" e-required>
+                        {{ pollSample.Age || 0 }}
+                    </span>
+                </td>
+                <td>
+                    <span editable-text="pollSample.CountryId" e-name="countryId" e-form="rowform" e-required>
+                        {{ pollSample.CountryId || '--' }}
+                    </span>
+                </td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="rowform" onbeforesave="saveUser($data, pollSample)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pollSample">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!rowform.$visible">
+                        <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                        <button class="btn btn-danger" ng-click="removeUser(pollSample.PollSampleEntityId, $index)">del</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-default" ng-click="addUser()">Add row</button>
+</div>
